@@ -1,0 +1,12 @@
+<h1>Plan#edit</h1>
+<div class="container">
+	<%= simple_form_for @plan do |f| %>
+		<%= f.simple_fields_for :plan_cities do |pc| %>
+			<%= pc.input :city, as: :hidden %>
+			<%= pc.simple_fields_for(:city) do |c| %>
+				<%= c.input :name %>
+			<% end %>
+		<% end %>
+		<%= f.submit %>
+	<% end %>
+</div>

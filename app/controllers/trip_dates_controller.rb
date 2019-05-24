@@ -1,0 +1,2 @@
+class TripDatesController < ApplicationController
+end
