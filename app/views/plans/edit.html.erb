@@ -1,12 +1,17 @@
 <h1>Plan#edit</h1>
 <div class="container">
-	<%= simple_form_for @plan do |f| %>
-		<%= f.simple_fields_for :plan_cities do |pc| %>
-			<%= pc.input :city, as: :hidden %>
-			<%= pc.simple_fields_for(:city) do |c| %>
-				<%= c.input :name %>
-			<% end %>
+	<% if @plan.cities.blank? %>
+		<%= simple_form_for @plan do |f| %>
+			<%= f.association :cities %>
+			<%= f.submit %>
 		<% end %>
-		<%= f.submit %>
+	<% else %>
+		<%= simple_form_for :trip_dates, url: plan_path(@plan), method: :patch do |f| %>
+			<% @plan.cities.count.times do |count| %>
+				<%= f.input 'start_dates[]', as: :date %>
+				<%= f.input 'end_dates[]', as: :date %>
+			<% end %>
+			<%= f.submit %>
+		<% end %>
 	<% end %>
 </div>
